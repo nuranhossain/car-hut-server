@@ -35,6 +35,8 @@ async function run() {
       const familyCar = await familyCarCollection.find(query).toArray();
       res.send(familyCar);
     });
+
+    // Cheap Category
     app.get("/cheap", async (req, res) => {
       const query = {};
       const cheapCar = await cheapCarCollection.find(query).toArray();
