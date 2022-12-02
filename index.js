@@ -105,6 +105,7 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await userCollection.deleteOne(filter);
+      res.send(result);
     });
 
     // Buying List
