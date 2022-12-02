@@ -101,7 +101,7 @@ async function run() {
       res.send(result);
     });
 
-    app.delete();
+    app.delete("/doctors", async (req, res) => {});
 
     // Buying List
   } finally {
