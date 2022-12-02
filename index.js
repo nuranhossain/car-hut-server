@@ -101,6 +101,8 @@ async function run() {
       res.send(result);
     });
 
+    app;
+
     // Buying List
   } finally {
   }
