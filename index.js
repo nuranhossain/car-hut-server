@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 require("dotenv").config();
 const app = express();
@@ -101,7 +101,11 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/doctors", async (req, res) => {});
+    app.delete("/doctors/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id) };
+      const result = await userCollection.deleteOne(filter);
+    });
 
     // Buying List
   } finally {
