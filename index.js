@@ -101,6 +101,7 @@ async function run() {
       res.send(result);
     });
 
+    // user Delete
     app.delete("/doctors/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
