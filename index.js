@@ -26,8 +26,10 @@ async function run() {
     const luxuriouspCarCollection = client
       .db("CarHut")
       .collection("luxuriousCar");
+    // User Collection
     const userCollection = client.db("CarHut").collection("users");
 
+    // Family Category
     app.get("/family", async (req, res) => {
       const query = {};
       const familyCar = await familyCarCollection.find(query).toArray();
