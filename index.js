@@ -23,6 +23,7 @@ async function run() {
     const familyCarCollection = client.db("CarHut").collection("familyCar");
     const cheapCarCollection = client.db("CarHut").collection("CheapCar");
     const userBuyList = client.db("CarHut").collection("userBuyingCarList");
+    const allPost = client.db("CarHut").collection("allPost");
     const luxuriouspCarCollection = client
       .db("CarHut")
       .collection("luxuriousCar");
@@ -31,15 +32,15 @@ async function run() {
 
     // Family Category
     app.get("/family", async (req, res) => {
-      const query = {};
-      const familyCar = await familyCarCollection.find(query).toArray();
+      const query = { typ: "family" };
+      const familyCar = await allPost.find(query).toArray();
       res.send(familyCar);
     });
 
     // Cheap Category
     app.get("/cheap", async (req, res) => {
-      const query = {};
-      const cheapCar = await cheapCarCollection.find(query).toArray();
+      const query = { typ: "cheap" };
+      const cheapCar = await allPost.find(query).toArray();
       res.send(cheapCar);
     });
 
@@ -57,15 +58,29 @@ async function run() {
       const result = await userBuyList.insertOne(buyList);
       res.send(result);
     });
+
     app.get("/luxurious", async (req, res) => {
-      const query = {};
-      const luxuriousCar = await luxuriouspCarCollection.find(query).toArray();
+      const query = { typ: "luxurious" };
+      const luxuriousCar = await allPost.find(query).toArray();
       res.send(luxuriousCar);
     });
 
     app.post("/users", async (req, res) => {
       const user = req.body;
       const result = await userCollection.insertOne(user);
+      res.send(result);
+    });
+
+    app.post("/addpost", async (req, res) => {
+      const addPost = req.body;
+
+      const result = await allPost.insertOne(addPost);
+      res.send(result);
+    });
+
+    app.get("/addpost", async (req, res) => {
+      const query = {};
+      const result = await allPost.find(query).toArray();
       res.send(result);
     });
 
@@ -106,7 +121,7 @@ async function run() {
     });
 
     // user Delete
-    app.delete("/doctors/:id", async (req, res) => {
+    app.delete("/users/admin/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await userCollection.deleteOne(filter);
